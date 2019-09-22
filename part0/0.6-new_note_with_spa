@@ -1,0 +1,15 @@
+title Adding new note with single page version
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+
+note over server:
+Server starts executing code
+that saves new note and adds it to /data.json
+end note
+
+server-->browser: [{ content: "Added a new note", date: "2019-09-22" }, ...]
+
+note over browser:
+browser executes the event handler
+that renders only new note to display
+end note
