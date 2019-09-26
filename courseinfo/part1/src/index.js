@@ -13,6 +13,8 @@ const App = () => {
   return (
     <>
       <Header coursename={coursename} />
+      <Header coursename={'Second header'} />
+
       <Content part1={part1} part2={part2} part3={part3} exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
       <Total exercises1={exercises1} exercises2={exercises2} exercises3={exercises3}/>
     </>
@@ -47,9 +49,11 @@ const Header = (props) => {
 
   const Part = (props) => {
     return (
-        <p>
-        {props.part} {props.exercises}
-      </p>
+        <table border='1'>
+        <tr>
+        <td>{props.part}</td> <td>{props.exercises}</td>
+      </tr>
+      </table>
     )
   }
 
