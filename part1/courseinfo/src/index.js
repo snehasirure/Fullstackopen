@@ -1,6 +1,45 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const Header = (props) => {
+  return (
+      <h1>
+          {props.courseName}
+      </h1>
+  );
+}
+
+const Part = (props) => {
+  return (
+      <p>
+          {props.name} {props.exercises}
+      </p>
+  );
+}
+
+const Content = (props) => {
+return (
+  <div>
+    <Part name={props.parts[0].name} exercises={props.parts[0].exercises} />
+    <Part name={props.parts[1].name} exercises={props.parts[1].exercises} />
+    <Part name={props.parts[2].name} exercises={props.parts[2].exercises} />
+</div>
+)}
+
+const Total = (props) => {
+  let Totalnumber= 0
+
+  props.parts.forEach(Element => {
+    Totalnumber+=Element.exercises
+  })
+  return(
+  <div>
+    Number of exercises {Totalnumber}
+    </div>
+
+)
+  }
+
 
 const App = () => {
   // Constant Definitions
@@ -21,14 +60,10 @@ const App = () => {
     ]
 
   return (
-    <div>   
-<h1>{course}</h1>
-<p> {parts[0].name} {parts[0].exercises} </p>
-<p> {parts[1].name} {parts[1].exercises} </p>
-<p> {parts[2].name} {parts[2].exercises} </p>
-<p>Number of exercises {parts[0].exercises+parts[1].exercises+parts[2].exercises} </p>
-
+    <div>
+      <Header courseName={course} />
+      <Content parts={parts} />
+      <Total parts={parts} />
     </div>
-  )
-}
+  )}
 ReactDOM.render(<App />, document.getElementById('root'))
