@@ -27,19 +27,18 @@ return (
 )}
 
 const Total = (props) => {
-  let Totalnumber= 0
+  let totalnumber= 0
 
   props.parts.forEach(Element => {
-    Totalnumber+=Element.exercises
+    totalnumber+=Element.exercises
   })
+
   return(
-  <div>
-    Number of exercises {Totalnumber}
+    <div>
+      Number of exercises {totalnumber}
     </div>
-
-)
-  }
-
+  )
+}
 
 const App = () => {
   // Constant Definitions
@@ -66,4 +65,5 @@ const App = () => {
       <Total parts={parts} />
     </div>
   )}
+  
 ReactDOM.render(<App />, document.getElementById('root'))
