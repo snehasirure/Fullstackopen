@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import { all } from 'q';
 
 const Header = (props) => {
   return (
@@ -41,6 +42,8 @@ const App = () => {
     setBad(bad + 1)
   }
 
+  
+
   return (
     <div>
       <Header name="Give feedback" />
@@ -52,6 +55,10 @@ const App = () => {
       <Stat statname="Good" count={good} />
       <Stat statname="Neutral" count={neutral} />
       <Stat statname="Bad" count={bad} />
+      <Stat statname="all" count={good+neutral+bad} />
+      <Stat statname="average" count={good-bad/(good+bad+neutral)} />
+      <Stat statname="positive" count={good/(good+bad+neutral)} />
+
     </div>
   )
 }
