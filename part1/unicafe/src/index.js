@@ -1,6 +1,19 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const History = (props) => {
+  if (props.good + props.neutral + props.bad === 0) {
+    return (
+      <div>
+        No feedback given
+      </div>
+    );
+  }
+
+  return (
+    <Statistics good={props.good} bad={props.bad} neutral={props.neutral} />
+  ); 
+}
 
 const Header = (props) => {
   return (
@@ -11,23 +24,29 @@ const Header = (props) => {
 }
 
 const Button = ({ onClick, text }) => (
-  <button onClick={onClick}>
-    {text}
-  </button>
+  <button onClick={onClick}> {text} </button>
 )
 
 const Statistics = (props) => {
     return (
       <div>
-          <p>Good  {props.good} </p>
-          <p>Neutral  {props.neutral} </p>
-          <p>Bad  {props.bad} </p>
-          <p>All  {(props.good)+ (props.neutral) + (props.bad) }</p>
-          <p>Average  {(props.good-props.bad)/(props.good+props.neutral+props.bad)} </p>
-          <p>positive  {((props.good)/(props.good+props.neutral+props.bad))*100} %</p>
+        <Statistic text="Good" value={props.good} />
+        <Statistic text="Neutral" value={props.neutral} />
+        <Statistic text="Bad" value={props.bad} />
+        <Statistic text="All" value={props.good+ props.neutral + props.bad} />
+        <Statistic text="Average" value={(props.good-props.bad)/(props.good+props.neutral+props.bad)} />
+        <Statistic text="Positive" value={((props.good)/(props.good+props.neutral+props.bad))*100} percentage="%" />
       </div>
     );
-  }
+}
+
+const Statistic = (props) => {
+    return (
+      <div>
+          {props.text} {props.value}{props.percentage}
+      </div>
+    );
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
@@ -46,8 +65,6 @@ const App = () => {
     setBad(bad + 1)
   }
 
-  
-
   return (
     <div>
       <Header name="Give feedback" />
@@ -56,14 +73,9 @@ const App = () => {
       <Button onClick={handleBadClick} text='bad' />
 
       <Header name="Statistics" />
-      <Statistics good={good} bad={bad} neutral={neutral} />
-
-      
-
-    </div>
+      <History good={good} bad={bad} neutral={neutral} />
+      </div>
   )
 }
 
-ReactDOM.render(<App />, 
-  document.getElementById('root')
-)
+ReactDOM.render(<App />, document.getElementById('root'))
