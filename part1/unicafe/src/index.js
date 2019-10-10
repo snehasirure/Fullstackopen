@@ -4,9 +4,7 @@ import ReactDOM from 'react-dom'
 const History = (props) => {
   if (props.good + props.neutral + props.bad === 0) {
     return (
-      <div>
-        No feedback given
-      </div>
+      <Statistic text="No feedback given" />
     );
   }
 
@@ -74,7 +72,7 @@ const App = () => {
 
       <Header name="Statistics" />
       <History good={good} bad={bad} neutral={neutral} />
-      </div>
+    </div>
   )
 }
 
