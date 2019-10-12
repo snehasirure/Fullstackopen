@@ -4,7 +4,11 @@ import ReactDOM from 'react-dom'
 const History = (props) => {
   if (props.good + props.neutral + props.bad === 0) {
     return (
-      <Statistic text="No feedback given" />
+      <table>
+      <tbody>
+            <Statistic text="No feedback given" />
+      </tbody>
+      </table>
     );
   }
 
@@ -27,22 +31,25 @@ const Button = ({ onClick, text }) => (
 
 const Statistics = (props) => {
     return (
-      <div>
-        <Statistic text="Good" value={props.good} />
-        <Statistic text="Neutral" value={props.neutral} />
-        <Statistic text="Bad" value={props.bad} />
-        <Statistic text="All" value={props.good+ props.neutral + props.bad} />
-        <Statistic text="Average" value={(props.good-props.bad)/(props.good+props.neutral+props.bad)} />
-        <Statistic text="Positive" value={((props.good)/(props.good+props.neutral+props.bad))*100} percentage="%" />
-      </div>
+        <table>
+          <tbody>
+            <Statistic text="Good" value={props.good} />
+            <Statistic text="Neutral" value={props.neutral} />
+            <Statistic text="Bad" value={props.bad} />
+            <Statistic text="All" value={props.good+ props.neutral + props.bad} />
+            <Statistic text="Average" value={(props.good-props.bad)/(props.good+props.neutral+props.bad)} />
+            <Statistic text="Positive" value={((props.good)/(props.good+props.neutral+props.bad))*100} percentage="%" /> 
+          </tbody>
+        </table>
     );
 }
 
 const Statistic = (props) => {
     return (
-      <div>
-          {props.text} {props.value}{props.percentage}
-      </div>
+      <tr>
+          <td>{props.text}</td>
+          <td>{props.value}{props.percentage}</td>  
+      </tr>
     );
 }
 
@@ -64,7 +71,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <>
       <Header name="Give feedback" />
       <Button onClick={handleGoodClick} text='good' />
       <Button onClick={handleNeutralClick} text='neutral' />
@@ -72,7 +79,7 @@ const App = () => {
 
       <Header name="Statistics" />
       <History good={good} bad={bad} neutral={neutral} />
-    </div>
+    </>           
   )
 }
 
