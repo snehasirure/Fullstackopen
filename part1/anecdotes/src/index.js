@@ -1,6 +1,34 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const HighestVotes = () => {
+  let sumVote = 0
+  let maxVote = 0
+  let selectedVote = 0
+  for (var i = 0; i < anecdotes.length - 1; i++) {
+      sumVote = sumVote + points[i]
+      if (maxVote < points[i]) {
+          maxVote = points[i]
+          selectedVote = i
+      }
+  }
+  if (sumVote === 0) {
+      return (
+          <div>
+              <h1>You haven't voted yet</h1>
+          </div>
+      )
+  } else {
+      return (
+          <div>
+              <h1>Anecdote with most votes</h1>
+              <p>{anecdotes[selectedVote]}</p>
+              <p>has {maxVote} votes</p>
+          </div>
+      )
+  }
+}
+
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}> {text} </button>
 )
@@ -29,10 +57,13 @@ const App = (props) => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <Anecdotes anecdotes={anecdotes[selected]} />
       <p>has {points[selected]} votes</p>
       <Button onClick={vote} text='vote' />
       <Button onClick={handleClick} text='next anecdotes' />
+
+      <HighestVotes />
     </div>
   )
 }
