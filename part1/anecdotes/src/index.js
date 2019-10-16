@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const HighestVotes = () => {
+const HighestVotes = (props) => {
   let sumVote = 0
   let maxVote = 0
   let selectedVote = 0
   for (var i = 0; i < anecdotes.length - 1; i++) {
-      sumVote = sumVote + points[i]
-      if (maxVote < points[i]) {
-          maxVote = points[i]
+      sumVote = sumVote + props.arrayOfPoints[i]
+      if (maxVote < props.arrayOfPoints[i]) {
+          maxVote = props.arrayOfPoints[i]
           selectedVote = i
       }
   }
@@ -42,7 +42,10 @@ const Anecdotes = (props) => {
   }
 
 const App = (props) => {
+  const arrayOfZeros = Array.from(Array(anecdotes.length).keys()).fill(0)
   const [selected, setSelected] = useState(0)
+  const [points, updatePoints] = useState(arrayOfZeros)
+  
 
   const handleClick = () => {
     const min = 0;
@@ -52,7 +55,9 @@ const App = (props) => {
   }
 
   const vote = () => {
-    points[selected] += 1
+    const copyOfPoints = [...points]
+    copyOfPoints[selected] += 1
+    updatePoints(copyOfPoints)
   }
 
   return (
@@ -63,7 +68,7 @@ const App = (props) => {
       <Button onClick={vote} text='vote' />
       <Button onClick={handleClick} text='next anecdotes' />
 
-      <HighestVotes />
+      <HighestVotes arrayOfPoints={points} />
     </div>
   )
 }
@@ -77,7 +82,7 @@ const anecdotes = [
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
 
-const points = Array.from(Array(anecdotes.length).keys()).fill(0)
+
 
 ReactDOM.render(
   <App anecdotes={anecdotes} />, document.getElementById('root')
