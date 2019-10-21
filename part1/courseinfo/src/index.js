@@ -9,61 +9,48 @@ const Header = (props) => {
   );
 }
 
-const Part = (props) => {
-  return (
-      <p>
-          {props.name} {props.exercises}
-      </p>
-  );
-}
-
 const Content = (props) => {
-return (
-  <div>
-    <Part name={props.parts[0].name} exercises={props.parts[0].exercises} />
-    <Part name={props.parts[1].name} exercises={props.parts[1].exercises} />
-    <Part name={props.parts[2].name} exercises={props.parts[2].exercises} />
-</div>
-)}
-
-const Total = (props) => {
-  let totalnumber= 0
-
-  props.parts.forEach(Element => {
-    totalnumber+=Element.exercises
-  })
-
-  return(
+  return (
     <div>
-      Number of exercises {totalnumber}
+      {props.course.parts.map(part => <p key={part.id}>{part.name} {part.exercises}</p>)}
     </div>
-  )
-}
+  )}
+
+const Course = (props) => {
+  return (
+    <div>
+      <Header courseName={props.course.name} />
+      <Content course={props.course} />
+  </div>
+  )}
 
 const App = () => {
-  // Constant Definitions
-    const course = 'Half Stack application development'
-    const parts = [
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 10
+        exercises: 10,
+        id: 1
       },
       {
         name: 'Using props to pass data',
-        exercises: 7
+        exercises: 7,
+        id: 2
       },
       {
         name: 'State of a component',
-        exercises: 14
+        exercises: 14,
+        id: 3
       }
     ]
+  }
 
   return (
     <div>
-      <Header courseName={course} />
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <Course course={course} />
     </div>
-  )}
+  )
+}
   
 ReactDOM.render(<App />, document.getElementById('root'))
