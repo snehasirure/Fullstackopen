@@ -17,15 +17,13 @@ const Content = (props) => {
   )}
 
   const Total = (props) => {
-    let sumOfExercise = 0
-    props.parts.map(part => {
-      sumOfExercise += part.exercises
+    const sumOfExercise = props.parts.reduce((sum, currentValue) => sum + currentValue.exercises, 0)
+    console.log(sumOfExercise)
+    return (<div>total of {sumOfExercise} exercises</div>)
     }
-    )
-    return(
-      <div><strong>total of {sumOfExercise} exercises</strong></div>
-    )
-  }
+    
+  
+  
 
 const Course = (props) => {
   return (
